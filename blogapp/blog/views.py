@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import PostModel
 from .forms import PostModelForm, PostUpdateForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def index(request):
     posts = PostModel.objects.all()
+    page = Paginator(posts, 3)
+    page_list = request.GET.get('page')
+    page = page.get_page(page_list)
 
     if request.method == 'POST':
         form = PostModelForm(request.POST)
@@ -15,8 +20,10 @@ def index(request):
     else:
         form = PostModelForm()
 
-    context = {'posts': posts, 
-               'form': form}
+    context = {
+                # 'posts': posts,
+               'form': form,
+               'page': page}
     return render(request, 'blog/index.html', context)
 
 def post_detail(request, pk):
@@ -50,4 +57,3 @@ def post_delete(request, pk):
         'post': post
     }  
     return render(request, 'blog/post_delete.html', context)
-
