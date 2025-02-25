@@ -1,5 +1,8 @@
 # Django Tiny App
 
+## Sv: MSSV:
+## Sv: MSSV:
+
 ## Hướng dẫn chạy ứng dụng Django
 
 ### Yêu cầu hệ thống
@@ -39,5 +42,3 @@
 
 6. **Truy cập ứng dụng**
     Mở trình duyệt và truy cập `http://127.0.0.1:8000/`
-
-
