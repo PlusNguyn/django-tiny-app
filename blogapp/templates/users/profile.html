@@ -81,30 +81,3 @@
     </div>
 </div>
 {% endblock %}
-
-<script>
-    $(document).ready(function() {
-        $('#delete-selected-btn').click(function() {
-            var post_id = [];
-            $('.checkbox:checked').each(function() {
-                post_id.push($(this).data('id'));
-            });
-
-            if (post_id.length > 0) {
-                $.ajax({
-                    url: "{% url 'delete-selected-post' %}",
-                    type: "POST",
-                    data: {
-                        post_id: post_id,
-                        csrfmiddlewaretoken: "{{ csrf_token }}"
-                    },
-                    success: function(response) {
-                        location.reload();
-                    }
-                });
-            } else {
-                alert('Please select post to delete');
-            }
-        });
-    });
-</script>
