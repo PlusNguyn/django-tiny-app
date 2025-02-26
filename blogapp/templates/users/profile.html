@@ -29,24 +29,26 @@
             </div>
         </div>
     </div>
+   
+    <h3 class="mb-3">My Post</h3>
 
-    <h3 class="mt-4 mb-3">My Posts</h3>
+    <button class="btn btn-danger btn mb-5 mt-2" id="delete-selected-btn">Delete selected</button>
 
-    
     <div class="row">
       {% for post in post_uploaded %}
-      <div class="col-md-4">
-        <div class="card mb-4 shadow">
-          <!-- <img class="card-img-top" src="{{ post.image.url }}" alt="Post image"> -->
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
-            <a href="{% url 'blog-post-detail' post.id %}" class="btn btn-primary">Read More</a>
-          </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow">
+            <div class="card-body">
+                <input type="checkbox" name="post_id[]" id="delete_post" class="checkbox float-right" data-id="{{ post.id }}" style="transform: scale(1.5);">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text text-justify">{{ post.content|truncatewords:20 }}</p>
+                <a href="{% url 'blog-post-detail' post.id %}" class="btn btn-primary">Read More</a>
+            </div>
+            </div>
         </div>
-      </div>
       {% endfor %}
     </div>
+    
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,3 +81,30 @@
     </div>
 </div>
 {% endblock %}
+
+<script>
+    $(document).ready(function() {
+        $('#delete-selected-btn').click(function() {
+            var post_id = [];
+            $('.checkbox:checked').each(function() {
+                post_id.push($(this).data('id'));
+            });
+
+            if (post_id.length > 0) {
+                $.ajax({
+                    url: "{% url 'delete-selected-post' %}",
+                    type: "POST",
+                    data: {
+                        post_id: post_id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            } else {
+                alert('Please select post to delete');
+            }
+        });
+    });
+</script>
