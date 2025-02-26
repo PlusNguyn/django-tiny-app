@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import PostModel
 from .forms import PostModelForm, PostUpdateForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.core.paginator import Paginator
 
 def index(request):
     posts = PostModel.objects.all()

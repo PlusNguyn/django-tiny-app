@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import logout
+from blog.models import PostModel
 
 def sign_up(request):
     if request.method == 'POST':
@@ -30,8 +31,21 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profilemodel)
 
+    post_uploaded = PostModel.objects.filter(author=request.user)
+
+
+
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'post_uploaded': post_uploaded
     }
     return render(request, 'users/profile.html', context)
+
+
+# from django.shortcuts import render
+# from blog.models import PostModel
+
+# def profile_view(request):
+#     posts = PostModel.objects.filter(author=request.user)
+#     return render(request, 'users/profile.html', {'posts': posts})
