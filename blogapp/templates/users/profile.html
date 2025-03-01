@@ -32,7 +32,13 @@
    
     <h3 class="mb-3">My Post</h3>
 
-    <button class="btn btn-danger btn mb-5 mt-2" id="delete-selected-btn">Delete selected</button>
+
+    <form method="POST" action="{% url 'delete-selected-posts' %}" id="delete-form">
+        {% csrf_token %}
+        <input type="hidden" name="selected_posts" id="selected-posts">
+        <button type="submit" class="btn btn-danger btn mb-5 mt-2">Delete selected</button>
+    </form>
+    
 
     <div class="row">
       {% for post in post_uploaded %}
@@ -80,4 +86,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll(".checkbox");
+        const deleteForm = document.getElementById("delete-form");
+        const selectedPostsInput = document.getElementById("selected-posts");
+
+        deleteForm.addEventListener("submit", function (event) {
+            let selectedIds = [];
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedIds.push(checkbox.getAttribute("data-id"));
+                }
+            });
+
+            if (selectedIds.length === 0) {
+                alert("Vui lòng chọn ít nhất một bài viết để xoá!");
+                event.preventDefault();
+            } else {
+                selectedPostsInput.value = selectedIds.join(",");
+            }
+        });
+    });
+</script>
+
 {% endblock %}

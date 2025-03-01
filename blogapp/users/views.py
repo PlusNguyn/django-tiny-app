@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import logout
 from blog.models import PostModel
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 def sign_up(request):
     if request.method == 'POST':
@@ -42,7 +44,13 @@ def profile(request):
     }
     return render(request, 'users/profile.html', context)
 
-
+def delete_selected_posts(request):
+    if request.method == "POST":
+        post_ids = request.POST.get("selected_posts", "").split(",")
+        PostModel.objects.filter(id__in=post_ids, author=request.user).delete()
+        messages.success(request, "Bài viết đã được xoá thành công!")
+        return redirect("users-profile")
+    
 # from django.shortcuts import render
 # from blog.models import PostModel
 
