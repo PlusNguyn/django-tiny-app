@@ -1,9 +1,9 @@
 {% extends 'partials/base.html' %}
 {% block title %}Login Page{% endblock%}
-{%load crispy_forms_tags %} 
+{% load crispy_forms_tags %} 
 {% block content %}
 <div class="cover">
-        <div class="container">
+    <div class="container">
         <div class="row mt-5 pt-3">
             <div class="col-md-5 offset-md-6">
                 <div class="card my-3 shadow">
@@ -11,6 +11,27 @@
                     <div class="card-body">
                         <h3>Sign in</h3>
                         <hr>
+                        
+                        <!-- Hiển thị lỗi nếu có -->
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <!-- Hiển thị thông báo tài khoản bị khóa -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+
                         <form method="POST">
                             {% csrf_token %}
                             {{ form|crispy }}
@@ -31,5 +52,23 @@
     </div>
 </div>
 
-{% endblock %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Kiểm tra xem tài khoản vừa được mở khóa hay không
+        let accountUnlocked = sessionStorage.getItem("account_unlocked");
 
+        if (accountUnlocked === "true") {
+            // Nếu đã reload trước đó, không reload nữa
+            sessionStorage.removeItem("account_unlocked");
+        } else {
+            // Đánh dấu rằng tài khoản vừa được mở khóa
+            sessionStorage.setItem("account_unlocked", "true");
+            // Reload trang để CSRF token được cập nhật
+            setTimeout(function() {
+                location.reload();
+            }, 500); // Reload sau 0.5 giây
+        }
+    });
+</script>
+
+{% endblock %}

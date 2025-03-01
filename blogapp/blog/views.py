@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 from .models import PostModel
 from .forms import PostModelForm, PostUpdateForm
 from django.core.paginator import Paginator
+from django.contrib.auth.views import LoginView
+from .forms import CustomAuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 def index(request):
     posts = PostModel.objects.all()
@@ -56,3 +62,27 @@ def post_delete(request, pk):
         'post': post
     }  
     return render(request, 'blog/post_delete.html', context)
+
+class CustomLoginView(LoginView):
+    template_name = 'users/login.html'
+
+    def form_invalid(self, form):
+        username = self.request.POST.get('username')  # Lấy username từ request
+        user = User.objects.filter(username=username).first()
+
+        # Xóa lỗi mặc định của Django trong form.errors
+        form.errors.pop("__all__", None)
+
+        if user and not user.is_active:
+            messages.error(self.request, "Tài khoản của bạn đã bị khóa.")
+        else:
+            messages.error(self.request, "Tên đăng nhập hoặc mật khẩu không đúng.")
+
+        return super().form_invalid(form)
+
+def unlock_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = True
+    user.save()
+    messages.success(request, "Tài khoản của bạn đã được mở khóa. Vui lòng tải lại trang và thử đăng nhập lại.")
+    return redirect('login')
