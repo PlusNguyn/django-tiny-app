@@ -3,12 +3,15 @@ from .models import PostModel
 from .forms import PostModelForm, PostUpdateForm
 from django.core.paginator import Paginator
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.contrib.auth.views import LoginView
 from .forms import CustomAuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+=======
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 =======
 >>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 
@@ -66,6 +69,7 @@ def post_delete(request, pk):
     }  
     return render(request, 'blog/post_delete.html', context)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 class CustomLoginView(LoginView):
     template_name = 'users/login.html'
@@ -90,5 +94,7 @@ def unlock_user(request, user_id):
     user.save()
     messages.success(request, "Tài khoản của bạn đã được mở khóa. Vui lòng tải lại trang và thử đăng nhập lại.")
     return redirect('login')
+=======
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 =======
 >>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426

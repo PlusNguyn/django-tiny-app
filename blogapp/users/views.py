@@ -4,8 +4,11 @@ from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import logout
 from blog.models import PostModel
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+=======
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 =======
 >>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 
@@ -48,6 +51,7 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def delete_selected_posts(request):
     if request.method == "POST":
         post_ids = request.POST.get("selected_posts", "").split(",")
@@ -55,6 +59,9 @@ def delete_selected_posts(request):
         messages.success(request, "Bài viết đã được xoá thành công!")
         return redirect("users-profile")
     
+=======
+
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 =======
 
 >>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426

@@ -1,7 +1,11 @@
 from django.urls import path
 from . import views
 <<<<<<< HEAD
+<<<<<<< HEAD
 from .views import CustomLoginView
+=======
+
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 =======
 
 >>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
@@ -11,7 +15,10 @@ urlpatterns = [
     path('post_edit/<int:pk>/', views.post_edit, name='blog-post-edit'),
     path('post_delete/<int:pk>/', views.post_delete, name='blog-post-delete'),
 <<<<<<< HEAD
+<<<<<<< HEAD
     path('login/', CustomLoginView.as_view(), name='login'),
+=======
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 =======
 >>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 ]
