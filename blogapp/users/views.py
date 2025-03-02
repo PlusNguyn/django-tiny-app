@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import logout
 from blog.models import PostModel
+from django.contrib import messages
 
 
 def sign_up(request):
