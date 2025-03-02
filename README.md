@@ -45,10 +45,11 @@
 
 7. **Truy cập vào dockerfile**
     chạy lện cmd:
-     ```docker build -t django-tiny-app
+     ```
+     docker build -t django-tiny-app
 
      docker run -p 8000:8000 django-tiny-app 
-      
+
     sau đó truy cập vào http://127.0.0.1:8000/
     ```
 
