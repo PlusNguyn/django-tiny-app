@@ -45,9 +45,12 @@
 
 7. **Truy cập vào dockerfile**
     chạy lện cmd:
-     ```docker build -t django-tiny-app .
-     docker run -p 8000:8000 django-tiny-app  
-    sau đó truy cập vào http://127.0.0.1:8000/```
+     ```docker build -t django-tiny-app
+
+     docker run -p 8000:8000 django-tiny-app 
+      
+    sau đó truy cập vào http://127.0.0.1:8000/
+    ```
 
 8. **Dùng file intall.bat để chạy project**
     ```dùng lệnh: .\install.bat```
