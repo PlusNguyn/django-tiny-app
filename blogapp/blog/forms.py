@@ -1,7 +1,10 @@
 from django import forms
 from .models import PostModel
+<<<<<<< HEAD
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
+=======
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
 
 class PostModelForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}))
@@ -12,6 +15,7 @@ class PostModelForm(forms.ModelForm):
 class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = PostModel
+<<<<<<< HEAD
         fields = ['title', 'content']
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -21,3 +25,6 @@ class CustomAuthenticationForm(AuthenticationForm):
                 "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ admin để mở khóa.",
                 code='inactive',
             )
+=======
+        fields = ['title', 'content']
+>>>>>>> c9d53560519aa7997bdcdb498b8a0989ca5cb426
