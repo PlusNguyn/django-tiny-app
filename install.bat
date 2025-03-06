@@ -1,5 +1,5 @@
 @echo off
-echo 🔧 Đang thiết lập môi trường Django...
+echo Establishing Django environment...
 
 REM 1. Tạo Virtual Environment
 python -m venv env
@@ -17,3 +17,6 @@ REM 4. Khởi động server
 echo 🚀 Khởi động Django server...
 python manage.py runserver
 pause
+
+REM 5. Khởi động trình duyệt
+start http://127.0.0.1:8000/
