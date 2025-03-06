@@ -90,7 +90,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const checkboxes = document.querySelectorAll(".checkbox");
@@ -109,7 +108,14 @@
                 alert("Vui lòng chọn ít nhất một bài viết để xoá!");
                 event.preventDefault();
             } else {
-                selectedPostsInput.value = selectedIds.join(",");
+                // Hiển thị hộp thoại xác nhận
+                alert("Bạn đã chọn " + selectedIds.length + " bài viết để xóa.");
+                let confirmDelete = confirm("Bạn có chắc chắn muốn tiếp tục?");
+                if (!confirmDelete) {
+                    event.preventDefault(); // Hủy bỏ việc gửi form nếu người dùng chọn "Cancel"
+                } else {
+                    selectedPostsInput.value = selectedIds.join(",");
+                }
             }
         });
 
