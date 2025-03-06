@@ -18,32 +18,14 @@
 
     cd django-tiny-app
     ```
-
-2. **Tạo virtual environment và kích hoạt**
+2. **Di chuyển vào thư mục django-tiny-app và chạy lệnh**
     ```bash
-    python -m venv env
-    source env/bin/activate  # Trên Windows: .\env\Scripts\activate
+    install.bat
     ```
 
-3. **Cài đặt các gói phụ thuộc**
-    ```bash
-    pip install -r requirements.txt
-    ```
+3. **Để vào trang admin**
 
-4. **Chạy migrations**
-    ```bash
-    python manage.py migrate
-    ```
-
-5. **Chạy server**
-    ```bash
-    python manage.py runserver
-    ```
-
-6. **Truy cập ứng dụng**
-    ```Mở trình duyệt và truy cập http://127.0.0.1:8000/```
-
-7. **Truy cập vào dockerfile**
+33. **Truy cập vào dockerfile**
     chạy lện cmd:
      ```
      docker build -t django-tiny-app
