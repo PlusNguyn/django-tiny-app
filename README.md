@@ -1,7 +1,7 @@
 # Django Tiny App
 
-## Sv: MSSV:
-## Sv: MSSV:
+## Họ tên: Đào Tiến Sang - MSSV: 22705971
+## Họ tên: Trần Thái Nguyên - MSSV: 22697051
 
 ## Hướng dẫn chạy ứng dụng Django
 
