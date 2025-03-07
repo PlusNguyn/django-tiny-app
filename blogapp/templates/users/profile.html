@@ -5,26 +5,31 @@
 <div class="container">
     <div class="row mt-5 pt-3">
         <div class="col-md-6 offset-md-3">
-            <div class="card my-3 shadow">
-                <div class="card-header">
-                    <span class="h4">Profile</span>
-                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
-                        Edit Profile
+            <div class="card my-3 shadow border-primary">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <span class="h4 mb-0">Profile</span>
+                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-edit mr-1"></i>Edit Profile
                     </button>
                 </div>
                 <div class="card-body">
-                    <hr>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 text-center">
                             {% if user.profilemodel.image %}
-                                <img class="img-thumbnail" src="{{ user.profilemodel.image.url }}" alt="profile-img">
+                                <img class="img-thumbnail rounded-circle mb-3" src="{{ user.profilemodel.image.url }}" alt="profile-img" style="max-width: 200px; max-height: 200px; object-fit: cover;">
                             {% else %}
-                                <img class="img-thumbnail" src="/path/to/default-image.jpg" alt="default-profile-img">
+                                <img class="img-thumbnail rounded-circle mb-3" src="/path/to/default-image.jpg" alt="default-profile-img" style="max-width: 200px; max-height: 200px; object-fit: cover;">
                             {% endif %}
                         </div>
                         <div class="col-md-8">
-                            <h4>Name: {{ user.username }}</h4>
-                            <h4>Email: {{ user.email }}</h4>
+                            <div class="mb-3">
+                                <small class="text-muted"><i class="fas fa-user mr-2"></i>Username</small>
+                                <h5 class="mb-1">{{ user.username }}</h5>
+                            </div>
+                            <div>
+                                <small class="text-muted"><i class="fas fa-envelope mr-2"></i>Email</small>
+                                <h5 class="mb-1">{{ user.email }}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -32,22 +37,28 @@
         </div>
     </div>
 
-    <h3 class="mb-3">My Posts</h3>
+    <h3 class="mb-3 mt-4">My Posts</h3>
 
-    <form method="POST" action="{% url 'delete-selected-posts' %}" id="delete-form">
+    <form method="POST" action="{% url 'delete-selected-posts' %}" id="delete-form" class="mb-3">
         {% csrf_token %}
         <input type="hidden" name="selected_posts" id="selected-posts">
-        <button type="submit" class="btn btn-danger mb-5 mt-2">Delete selected</button>
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt mr-1"></i>Delete Selected
+        </button>
     </form>
     <div class="row">
         {% for post in post_uploaded %}
             <div class="col-md-4">
-                <div class="card mb-4 shadow">
+                <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <input type="checkbox" name="post_id[]" class="checkbox float-right" data-id="{{ post.id }}" style="transform: scale(1.5);">
                         <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text text-justify">{{ post.content|truncatewords:20 }}</p>
-                        <a href="{% url 'blog-post-detail' post.id %}" class="btn btn-primary">Read More</a>
+                        <p class="card-text text-justify text-muted">{{ post.content|truncatewords:20 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'blog-post-detail' post.id %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye mr-1"></i>Read More
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,19 +69,19 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 text-center">
                             {% if user.profilemodel.image %}
-                                <img class="img-thumbnail" src="{{ user.profilemodel.image.url }}" alt="profile-img">
+                                <img class="img-thumbnail rounded-circle mb-3" src="{{ user.profilemodel.image.url }}" alt="profile-img" style="max-width: 200px; max-height: 200px; object-fit: cover;">
                             {% else %}
-                                <img class="img-thumbnail" src="/path/to/default-image.jpg" alt="default-profile-img">
+                                <img class="img-thumbnail rounded-circle mb-3" src="/path/to/default-image.jpg" alt="default-profile-img" style="max-width: 200px; max-height: 200px; object-fit: cover;">
                             {% endif %}
                         </div>
                         <div class="col-md-8">
@@ -79,8 +90,12 @@
                                 {{ u_form|crispy }} 
                                 {{ p_form|crispy }}
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary btn-sm">Save changes</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                                        <i class="fas fa-times mr-1"></i>Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-save mr-1"></i>Save changes
+                                    </button>
                                 </div>
                             </form>
                         </div>

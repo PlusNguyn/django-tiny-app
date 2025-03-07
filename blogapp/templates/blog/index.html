@@ -5,63 +5,66 @@
 <div class="container">
     <div class="row mt-5 pt-3">
         <div class="col-md-4">
-            <div class="card my-3 shadow">
+            <div class="card my-3 shadow border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Create New Post</h5>
+                </div>
                 <div class="card-body">
                     <form method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <input type="submit" class="btn btn-primary btn-block" value="Create Post">
+                        <input type="submit" class="btn btn-primary btn-block mt-3" value="Create Post">
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             {% for post in page.object_list %}
-            <div class="card shadow my-3">
+            <div class="card shadow my-3 border-light">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <img class="img-thumbnail" src="{{post.author.profilemodel.image.url}}" alt="img">
+                        <div class="col-md-4 text-center">
+                            <img class="img-thumbnail rounded-circle mb-3" src="{{post.author.profilemodel.image.url}}" alt="Profile Image" style="max-width: 200px; max-height: 200px; object-fit: cover;">
                         </div>
                         <div class="col-md-8">
-                            <small><i>Date post: {{ post.created_at }}</i> </small>
-                            <br>
-                            <small><i>Last update: {{ post.updated_at }}</i></small>
-                            <hr>
-                            <a class="h3" href="{% url 'blog-post-detail' post.id %}">{{ post.title }}</a>
-                            <p class="text-justify my-3">
+                            <div class="mb-2">
+                                <small class="text-muted"><i class="far fa-clock mr-1"></i>Date post: {{ post.created_at }}</small>
+                                <br>
+                                <small class="text-muted"><i class="far fa-edit mr-1"></i>Last update: {{ post.updated_at }}</small>
+                            </div>
+                            <hr class="my-2">
+                            <a class="h3 text-decoration-none text-dark" href="{% url 'blog-post-detail' post.id %}">{{ post.title }}</a>
+                            <p class="text-justify my-3 text-muted">
                                 {{ post.content }}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            
             {% endfor %}
         </div>
     </div>
     <div class="footer">
         <div class="row my-5">
             <div class="col-md-4 offset-md-4">
-                <p class="text-center">Page: {{ page.number }}/{{ page.paginator.num_pages }}</p>
-                <nav aria-label="Page navigation example">
+                <p class="text-center text-muted">Page: {{ page.number }}/{{ page.paginator.num_pages }}</p>
+                <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
-                        
-                        <!-- Nút '<<' về trang đầu -->
+                        <!-- First Page Button -->
                         {% if page.number > 1 %}
                         <li class="page-item">
                             <a class="page-link" href="?page=1">&laquo;&laquo;</a>
                         </li>
                         {% endif %}
             
-                        <!-- Nút '<' về trang trước -->
+                        <!-- Previous Page Button -->
                         {% if page.has_previous %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ page.previous_page_number }}">Previous</a>
                         </li>
                         {% endif %}
             
-                        <!-- Hiển thị số trang (Giới hạn 5 trang xung quanh trang hiện tại) -->
+                        <!-- Page Numbers -->
                         {% with start=page.number|add:"-2" end=page.number|add:"2" %}
                             {% for num_page in page.paginator.page_range %}
                                 {% if num_page >= start and num_page <= end %}
@@ -72,27 +75,23 @@
                             {% endfor %}
                         {% endwith %}
             
-                        <!-- Nút '>' đến trang sau -->
+                        <!-- Next Page Button -->
                         {% if page.has_next %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ page.next_page_number }}">Next</a>
                         </li>
                         {% endif %}
             
-                        <!-- Nút '>>' đến trang cuối -->
+                        <!-- Last Page Button -->
                         {% if page.number < page.paginator.num_pages %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ page.paginator.num_pages }}">&raquo;&raquo;</a>
                         </li>
                         {% endif %}
-            
                     </ul>
                 </nav>
             </div>            
-            
         </div>
     </div>
 </div>
-
 {% endblock %}
-
